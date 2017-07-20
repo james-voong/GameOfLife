@@ -1,0 +1,135 @@
+Randomly generate starting grids. These methods are all based off the original addGridPane method in the JavaFX class, and use an array of
+colors, and a random number generate to generate a number from 1 to n of array, and then colors random cells black or white accordingly. 
+
+Talked to Karsten to figure out how to call these methods within a button but I didn't quite get it. Probably need to clear the array list of
+cells within each button's method as well. Buttons may be better in an HBox instead of VBox. Karsten also suggested having a separate method for
+generating the cells in the grid, and calling that on the addGridPane method (and then on all of the random grid generating methods as well).
+
+Button manyAlive = new Button("Many alive");
+Button fewAlive = new Button("Few alive");
+Button fiftyFifty = new Button("Fifty-fifty");
+
+I did each of these in their own JavaFX class.
+
+1) Fifty-fifty alive and dead cells:
+
+	public GridPane addGridPane() {
+		Color[] colors = {Color.BLACK, Color.WHITE};
+		Random rand = new Random();
+		GridPane grid = new GridPane();
+		// grid.setGridLinesVisible(true);
+		grid.setPadding(new Insets(10, 10, 10, 10));
+		for (int columnIndex = 0; columnIndex < 15; columnIndex++) {
+			for (int rowIndex = 0; rowIndex < 15; rowIndex++) {
+				int n = rand.nextInt(2);
+				Neighbourhood nb = new Neighbourhood(null, null, null, null, null, null, null, null);
+				Cell c = new Cell(20, 20, (byte) 0, (byte) 0, nb, rowIndex, columnIndex);
+				c.setFill(colors[n]);
+				c.setStroke(Color.BLACK);
+				c.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent event) {
+						System.out.println(c.getState());
+						if (c.getState() == 0) {
+							c.setFill(Color.BLACK);
+							c.setState((byte) 1);
+							return;
+						}
+						if (c.getState() == (byte) 1) {
+							c.setFill(Color.WHITE);
+							c.setState((byte) 0);
+							return;
+						}
+
+					}
+
+				});
+				cells.add(c);
+				grid.add(c, columnIndex, rowIndex);
+			}
+		}
+		return grid;
+	}
+	
+2. Many alive cells (approx 75-25):
+
+	public GridPane addGridPane() {
+		Color[] colors = {Color.BLACK, Color.WHITE, Color.BLACK, Color.BLACK};
+		Random rand = new Random();
+		GridPane grid = new GridPane();
+		// grid.setGridLinesVisible(true);
+		grid.setPadding(new Insets(10, 10, 10, 10));
+		for (int columnIndex = 0; columnIndex < 15; columnIndex++) {
+			for (int rowIndex = 0; rowIndex < 15; rowIndex++) {
+				int n = rand.nextInt(4);
+				Neighbourhood nb = new Neighbourhood(null, null, null, null, null, null, null, null);
+				Cell c = new Cell(20, 20, (byte) 0, (byte) 0, nb, rowIndex, columnIndex);
+				c.setFill(colors[n]);
+				c.setStroke(Color.BLACK);
+				c.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent event) {
+						System.out.println(c.getState());
+						if (c.getState() == 0) {
+							c.setFill(Color.BLACK);
+							c.setState((byte) 1);
+							return;
+						}
+						if (c.getState() == (byte) 1) {
+							c.setFill(Color.WHITE);
+							c.setState((byte) 0);
+							return;
+						}
+
+					}
+
+				});
+				cells.add(c);
+				grid.add(c, columnIndex, rowIndex);
+			}
+		}
+		return grid;
+	}
+	
+3. Generate few alive cells (approx 15-85):
+
+	public GridPane addGridPane() {
+		Color[] colors = {Color.BLACK, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE};
+		Random rand = new Random();
+		GridPane grid = new GridPane();
+		// grid.setGridLinesVisible(true);
+		grid.setPadding(new Insets(10, 10, 10, 10));
+		for (int columnIndex = 0; columnIndex < 15; columnIndex++) {
+			for (int rowIndex = 0; rowIndex < 15; rowIndex++) {
+				int n = rand.nextInt(6);
+				Neighbourhood nb = new Neighbourhood(null, null, null, null, null, null, null, null);
+				Cell c = new Cell(20, 20, (byte) 0, (byte) 0, nb, rowIndex, columnIndex);
+				c.setFill(colors[n]);
+				c.setStroke(Color.BLACK);
+				c.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent event) {
+						System.out.println(c.getState());
+						if (c.getState() == 0) {
+							c.setFill(Color.BLACK);
+							c.setState((byte) 1);
+							return;
+						}
+						if (c.getState() == (byte) 1) {
+							c.setFill(Color.WHITE);
+							c.setState((byte) 0);
+							return;
+						}
+
+					}
+
+				});
+				cells.add(c);
+				grid.add(c, columnIndex, rowIndex);
+			}
+		}
+		return grid;
+	}
